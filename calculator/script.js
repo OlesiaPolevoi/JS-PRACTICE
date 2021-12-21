@@ -1,6 +1,9 @@
 "use strict";
 
-const title = prompt("What is the name of the project?", "Calculator");
+let title = prompt(
+  "What is the name of the project?",
+  "Services calculator"
+).trim();
 const screens = prompt(
   "What types of screens are needed?",
   "Simple, Complex, Interactive"
@@ -16,32 +19,59 @@ const servicePrice1 = +prompt("How much is it?");
 const service2 = prompt("Any additional service?");
 const servicePrice2 = +prompt("How much is it?");
 
-const fullPrice = screenPrice + servicePrice1 + servicePrice2;
-console.log(fullPrice);
-const servicePercentPrice = Math.ceil(fullPrice - fullPrice * (rollback / 100));
+let allServicePrices;
+let fullPrice;
 
-// Привести строку screens к нижнему регистру и разбить строку на массив, вывести массив в консоль
-// console.log(screens.toLowerCase().split(" "));
+let servicePercentPrice;
 
-// Вывести в консоль Процент отката посреднику за работу (fullPrice * (rollback/100))
-// console.log(fullPrice * (rollback / 100));
+const getTitle = function (title) {
+  return title[0].toUpperCase() + title.toLowerCase().slice(1);
+};
+title = getTitle(title);
 
-if (fullPrice > 30000) {
-  console.log("The discount is 10%");
-} else if (fullPrice >= 15000 && fullPrice <= 30000) {
-  console.log("The discount is 5%");
-} else if (fullPrice >= 0 && fullPrice < 15000) {
-  console.log("There is no discount");
-} else {
-  console.log("Something went wrong");
-}
+const getAllServicePrices = function (serv1, serv2) {
+  return serv1 + serv2;
+};
+allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
 
-console.log(typeof title);
-console.log(typeof fullPrice);
-console.log(typeof adaptive);
+const getFullPrice = function (scrPrice, allServPrices) {
+  return scrPrice + allServPrices;
+};
+fullPrice = getFullPrice(screenPrice, allServicePrices);
 
-console.log(screens.length);
+const swowTypeOf = function (variable) {
+  console.log(variable, typeof variable);
+};
+
+const getServicePercentPrices = function (fullPrice, rollback) {
+  return Math.ceil(fullPrice - fullPrice * (rollback / 100));
+};
+servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
 console.log(servicePercentPrice);
+
+const getRollbackMessage = function (price) {
+  if (price > 30000) {
+    return "The discount is 10%";
+  } else if (price >= 15000 && price <= 30000) {
+    return "The discount is 5%";
+  } else if (price >= 0 && price < 15000) {
+    return "There is no discount";
+  } else {
+    return "Something went wrong";
+  }
+};
+
+console.log(getRollbackMessage(fullPrice));
+
+swowTypeOf(title);
+swowTypeOf(fullPrice);
+swowTypeOf(adaptive);
+
+console.log(fullPrice);
+
+console.log(screens);
+console.log(servicePercentPrice);
+console.log(allServicePrices);
 
 console.log("This work will cost " + screenPrice + " dollars");
 console.log("The full price will be " + fullPrice + " dollars");
