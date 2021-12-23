@@ -169,3 +169,57 @@
 //   // эта анонимная функция выполнится после вызова callback-функции
 //   console.log("callback called! " + num);
 // });
+
+//NOTE lesson04 HARD exercise
+// 1) Создайте функцию, которая принимает 1 аргумент (название произвольное)
+// — Если в качестве аргумента передана не строка - функция оповещает об этом пользователя
+// — В полученной (как аргумент) строке функция должна убрать все пробелы в начале и в конце
+// — Если строка более 30 знаков - то после 30го символа часть текста скрывается и вместо них появляются три точки (...)
+
+// const workingHard = function (variable) {
+//   if (typeof variable !== "string") {
+//     return "В качестве аргумента передана не строка.";
+//   }
+
+//   let variable1 = variable.trim();
+//   if (variable1.length <= 30) {
+//     return variable1;
+//   }
+
+//   return variable1.substring(0, 30) + "...";
+// };
+
+// // const numInput = workingHard(123);
+// // console.log(numInput);
+
+// const strInput = workingHard(" Hello beautiful people of this earth  ");
+// console.log(strInput);
+
+// //NOTE
+// function makeNegative(num) {
+//   return num <= 0 ? num : num * -1;
+// }
+// console.log(makeNegative(-5));
+
+// //NOTE
+
+// function tribonacci(signature, n) {
+//   let trib = signature;
+
+//   for (let i = 3; i < n; i++) {
+//     trib.push(trib[i - 1] + trib[i - 2] + trib[i - 3]);
+//   }
+//   return trib.slice(0, n);
+// }
+// console.log(tribonacci([1, 1, 1], 10));
+// //expected return
+// // [1, 1, 1, 3, 5, 9, 17, 31, 57, 105 ...]
+
+// //NOTE
+
+// 1) Создать массив arr = []
+// — Записать в него 7 любых многозначных чисел в виде строк
+// — Вывести в консоль только те, что начинаются с цифры 2 или 4 (Должны присутствовать в массиве)
+// 2) Вывести в столбик все простые числа от 1 до 100 (сделать при помощи цикла)
+// — Рядом с каждым числом написать оба делителя данного числа
+//     Например: “Делители этого числа: 1 и n”

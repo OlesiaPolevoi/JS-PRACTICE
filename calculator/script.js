@@ -1,53 +1,69 @@
 "use strict";
 
-let title = prompt(
-  "What is the name of the project?",
-  "Services calculator"
-).trim();
-const screens = prompt(
-  "What types of screens are needed?",
-  "Simple, Complex, Interactive"
-)
-  .toLowerCase()
-  .split(" ");
-const screenPrice = +prompt("How much is it?", "1000");
-const rollback = 10;
-const adaptive = !!prompt("Adaptive needed?", "true");
+let title;
+let screens;
+let screenPrice;
+let adaptive;
 
-const service1 = prompt("Any additional service?");
-const servicePrice1 = +prompt("How much is it?");
-const service2 = prompt("Any additional service?");
-const servicePrice2 = +prompt("How much is it?");
-
+let rollback = 10;
 let allServicePrices;
 let fullPrice;
-
 let servicePercentPrice;
+let service1;
+let service2;
 
-const getTitle = function (title) {
-  return title[0].toUpperCase() + title.toLowerCase().slice(1);
+const isNumber = function (num) {
+  return !isNaN(parseFloat(num)) && isFinite(num);
 };
-title = getTitle(title);
 
-const getAllServicePrices = function (serv1, serv2) {
-  return serv1 + serv2;
-};
-allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+const asking = function () {
+  title = prompt(
+    "What is the name of the project?",
+    "Services calculator"
+  ).trim();
+  screens = prompt(
+    "What types of screens are needed?",
+    "Simple, Complex, Interactive"
+  )
+    .toLowerCase()
+    .split(" ");
+  screenPrice = prompt("How much is it?", "1000");
+  while (!isNumber(screenPrice)) {
+    screenPrice = prompt("How much is it?", "1000");
+  }
 
-const getFullPrice = function (scrPrice, allServPrices) {
-  return scrPrice + allServPrices;
+  adaptive = !!prompt("Adaptive needed?", "true");
 };
-fullPrice = getFullPrice(screenPrice, allServicePrices);
+
+const getAllServicePrices = function () {
+  let sum = 0;
+
+  for (let i = 0; i < 2; i++) {
+    if (i === 0) {
+      service1 = prompt("Any additional service?");
+    } else if (i === 1) {
+      service2 = prompt("Any additional service?");
+    }
+    sum += +prompt("How much is it?");
+  }
+  return sum;
+};
 
 const swowTypeOf = function (variable) {
   console.log(variable, typeof variable);
 };
 
+const getTitle = function (title) {
+  return title[0].toUpperCase() + title.toLowerCase().slice(1);
+};
+
+const getFullPrice = function (scrPrice, allServPrices) {
+  return scrPrice + allServPrices;
+};
+
 const getServicePercentPrices = function (fullPrice, rollback) {
   return Math.ceil(fullPrice - fullPrice * (rollback / 100));
 };
-servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
-console.log(servicePercentPrice);
 
 const getRollbackMessage = function (price) {
   if (price > 30000) {
@@ -61,15 +77,19 @@ const getRollbackMessage = function (price) {
   }
 };
 
-console.log(getRollbackMessage(fullPrice));
+asking();
+allServicePrices = getAllServicePrices();
+fullPrice = getFullPrice(screenPrice, allServicePrices);
+servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
+title = getTitle(title);
 
 swowTypeOf(title);
-swowTypeOf(fullPrice);
+swowTypeOf(screenPrice);
 swowTypeOf(adaptive);
 
-console.log(fullPrice);
+console.log(getRollbackMessage(fullPrice));
 
-console.log(screens);
+console.log(screens.length);
 console.log(servicePercentPrice);
 console.log(allServicePrices);
 
