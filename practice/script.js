@@ -233,3 +233,219 @@
 // }
 
 // one();
+
+////NOTE  OOP
+
+// // let arr = [1, 2, 3, 4, 5];
+
+// // console.log(arr.__proto__);
+// // console.log(Array.prototype);
+
+// const man = {
+//   hands: 2,
+//   legs: 2,
+//   eyes: 2,
+
+//   walk: function () {
+//     console.log("I can walk");
+//   },
+//   talk: function () {
+//     console.log("I can talk");
+//   },
+// };
+
+// console.log(man);
+
+// const newMan = Object.create(man);
+// console.log(newMan);
+
+// newMan.walk();
+// console.log(newMan.hands);
+// // add uniqness to the Man, add key: value to the oject:
+// newMan.name = "Ivan";
+// newMan.age = 23;
+
+// // not like this, because this adds key: value to the original object, but we need a new Man
+// //man.name = "Mike";
+
+// console.log(newMan);
+
+// //create a newWoman too so the newMan has a pair
+// const newWoman = Object.create(man);
+
+// newWoman.name = "Anna";
+// newWoman.age = 22;
+// console.log(newWoman);
+
+// ////NOTE continue with OOP
+// //create object to keep info about company's workers
+
+// const worker = {
+//   workplace: 1,
+//   dinner: 1,
+
+//   goToWork: function () {
+//     console.log("Going to work");
+//   },
+
+//   leaveWork: function () {
+//     console.log("Leaving work");
+//   },
+
+//   work: function () {
+//     console.log("Working");
+//   },
+//   sayHello: function () {
+//     console.log("Hello, my name is " + this.name);
+//   },
+// };
+// console.log(worker);
+
+// //create new positions based on the already created object worker
+
+// const frontEndDev = Object.create(worker);
+// const backEndDev = Object.create(worker);
+
+// // Front End developers begun to have two dinners. Redefine dinner here
+// frontEndDev.dinner = 2;
+
+// frontEndDev.role = "Front end developer";
+// backEndDev.role = "Back end developer";
+
+// console.log(frontEndDev);
+// console.log(backEndDev);
+
+// // //run work method for the two different professions
+
+// // frontEndDev.work();
+// // backEndDev.work();
+
+// // // redefine method work to make it unique for each profession
+
+// // frontEndDev.work = function () {
+// //   console.log("Writing quality code, eating cookies.");
+// // };
+// // backEndDev.work = function () {
+// //   console.log("Struggling with databases, need a day off.");
+// // };
+// // // and run the method
+// // frontEndDev.work();
+// // backEndDev.work();
+
+// ////Hire new people
+// //not like this XXX
+// // const developer1 = Object.create(worker);
+
+// //like this:
+// const developer1 = Object.create(frontEndDev);
+// const developer2 = Object.create(frontEndDev);
+// const developer3 = Object.create(backEndDev);
+// const developer4 = Object.create(backEndDev);
+
+// ////give each developer a name
+// developer1.name = "Alex";
+// developer2.name = "Mike";
+// developer3.name = "Anna";
+// developer4.name = "Jen";
+
+// console.log(developer1);
+// //create method sayHello in the original object
+
+// ////run this method
+// developer1.sayHello();
+// developer2.sayHello();
+// developer3.sayHello();
+// developer4.sayHello();
+
+// //show each unique worker in console
+
+// console.log(developer1);
+// console.log(developer2);
+// console.log(developer3);
+// console.log(developer4);
+
+// console.log(developer1.dinner);
+// console.log(developer2.dinner);
+// console.log(developer3.dinner);
+// console.log(developer4.dinner);
+
+// //check if this person has his/her own property "name"?
+
+// console.log(developer1.hasOwnProperty("name"));
+// //shows true
+
+// console.log(developer1.hasOwnProperty("role"));
+// //shows false
+// //but I can reach this value through prototype, like this
+
+// console.log(developer1.__proto__.hasOwnProperty("role"));
+// //shows true
+
+// //will show false if we look for workplace
+// console.log(developer1.__proto__.hasOwnProperty("workplace"));
+// //shows false
+
+// //but, get into another prototype to get it
+// console.log(developer1.__proto__.__proto__.hasOwnProperty("workplace"));
+// //shows true
+
+// ////Check if one object is the prototypeOf other
+
+// //check is frontEndDev is the prototype of developer1
+
+// console.log(frontEndDev.isPrototypeOf(developer1));
+// //shows true
+
+// //then check developer3
+// console.log(frontEndDev.isPrototypeOf(developer3));
+// //shows false
+
+////NOTE function - constructor
+//instead of manually creating objects like those
+
+// const person1 = {
+//   name: "Vlad",
+// };
+
+// const person1 = {
+//   name: "Anna",
+// };
+
+//create a function constructor that will create those objects:
+
+const Person = function (name) {
+  console.log(this);
+  this.name = name;
+};
+
+// add a new method to the prototype:
+Person.prototype.sayHello = function () {
+  console.log("Hello, my name is " + this.name);
+};
+
+//name those functions - constructors with Capital letter
+
+// any function that uses the word  new   is a constructor function
+//create new objects here
+//call the function while giving it the parameters/arguments
+const person1 = new Person("Mike");
+const person2 = new Person("Tolik");
+const person3 = new Person("Evpatyi");
+
+//call this newly created method - sayHello with person1:
+person1.sayHello();
+//console shows: Hello, my name is Mike
+
+//create new object manually and check the differences in console vs those created by a constructor function
+//This is done so we can add methods to the prototype
+
+// const person4 = {
+//   name: "Anna",
+// };
+// console.log(person4);
+
+//when the word new is read the EMPTY object is created, and saved into the named variable, then the function runs with the given parameters and fills the object
+
+console.log(person1);
+console.log(person2);
+console.log(person3);
