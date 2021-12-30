@@ -400,52 +400,349 @@
 // console.log(frontEndDev.isPrototypeOf(developer3));
 // //shows false
 
-////NOTE function - constructor
-//instead of manually creating objects like those
+// ////NOTE function - constructor
+// //instead of manually creating objects like those
 
-// const person1 = {
-//   name: "Vlad",
+// // const person1 = {
+// //   name: "Vlad",
+// // };
+
+// // const person1 = {
+// //   name: "Anna",
+// // };
+
+// //create a function constructor that will create those objects:
+
+// const Person = function (name) {
+//   this.name = name;
+
+//   const age = 33;
+
+//   this.sayHello = function () {
+//     console.log("Hello, my name is " + this.name);
+//     console.log("I'm " + age + " years old");
+//   };
 // };
 
-// const person1 = {
-//   name: "Anna",
+// // // add a new method to the prototype:
+// // Person.prototype.sayHello = function () {
+// //   console.log("Hello, my name is " + this.name);
+// // }; //this method can also be created inside of the original function-constructor - move it there.
+
+// //name those functions - constructors with Capital letter
+
+// // any function that uses the word  new   is a constructor function
+// //create new objects here
+// //call the function while giving it the parameters/arguments
+// const person1 = new Person("Mike");
+// const person2 = new Person("Tolik");
+// const person3 = new Person("Evpatyi");
+
+// //call this newly created method - sayHello with person1:
+// person1.sayHello();
+// //console shows: Hello, my name is Mike
+
+// //create new object manually and check the differences in console vs those created by a constructor function
+// //This is done so we can add methods to the prototype
+
+// // const person4 = {
+// //   name: "Anna",
+// // };
+// // console.log(person4);
+
+// //when the word new is read the EMPTY object is created, and saved into the named variable, then the function runs with the given parameters and fills the object
+
+// console.log(person1);
+// console.log(person2);
+// console.log(person3);
+
+// //this shows whether person1 depends on function-constructor Person
+// console.log(person1 instanceof Person);
+
+////NOTE lesson 15 hw
+// "use strict";
+
+// const DomElement = function (selector, height, width, bg, fontSize) {
+//   this.selector = selector;
+//   this.height = height;
+//   this.width = width;
+//   this.bg = bg;
+//   this.fontSize = fontSize;
+
+//   this.createElem = function () {
+//     if (this.selector[0] === ".") {
+//       const newDiv = document.createElement("div");
+//       newDiv.classList.add(this.selector.slice(1));
+//       const cssText = `height: ${this.height}px;width: ${this.width}px;background-color: ${this.bg}`;
+//       newDiv.style.cssText = cssText;
+//       return newDiv;
+//     }
+//     if (this.selector[0] === "#") {
+//       const newParagraph = document.createElement("p");
+//       newParagraph.setAttribute("id", this.selector.slice(1));
+//       const cssTextFont = `font-size: ${this.fontSize}px`;
+//       console.log(cssTextFont);
+//       newParagraph.style.cssText = cssTextFont;
+//       return newParagraph;
+//     }
+//   };
+//   this.addText = function (text) {
+//     const elem = document.querySelector(this.selector);
+//     elem.innerHTML = text;
+//   };
 // };
 
-//create a function constructor that will create those objects:
+// let elem1 = new DomElement("#best", 100, 200, "red", 36);
 
-const Person = function (name) {
-  console.log(this);
-  this.name = name;
+// const bodyElem = document.querySelector("body");
+
+// //parentElem.addtoend(theElemweinserting.creaeElem())
+// bodyElem.append(elem1.createElem());
+
+// elem1.addText("some text");
+
+// //NOTE lesson 16: Особенности современного стандарта ES6
+
+// //receive an image from the page:
+// const img = document.querySelector("img");
+// console.log(img);
+
+// const user = {
+//   name: "Alex",
+//   age: 33,
+//   ////this is a function and an object method
+//   say() {
+//     console.log(this);
+//     const foo = (name, age) => {
+//       console.log(this);
+//       console.log("Hello, my name is " + name);
+//       console.log("I'm " + age + " years old");
+//     };
+
+//     foo("Alex", 33);
+//   },
+// };
+
+// user.say();
+
+// img.addEventListener("click", () => {
+//   user.say();
+// });
+
+////NOTE lesson 16 cont
+
+// // const foo = (name, age = 20) => {
+// //   // console.log("Hello, my name is " + name + "\n" + "I'm " + age + " years old");
+// // };
+
+// // foo("alex");
+
+// //using back ticks ``
+// //can do calculations inside ${ } or ternary operator ${ ? : }
+// const foo = (name, age) => {
+//   console.log(`Hello, my name is ${name}.
+// I'm ${age + 1} years old.`);
+// };
+
+// foo("alex", 33);
+
+////NOTE lesson 16 CLASSES
+////old version
+// create function - constructor
+
+// const Person = function (name, age) {
+//   this.name = name;
+//   this.age = age;
+// };
+// //add method sayHello :
+// Person.prototype.sayHello = function () {
+//   console.log(`Hello my name is ${this.name}`);
+// }; // if we include this method inside the object/function-constructor - DON'T DO it - Bad for productivity. keep it here on the outside
+
+// //create person1 using function constructor:
+// const person1 = new Person("Alex", 23);
+// //call newly created method sayHello
+// person1.sayHello();
+// console.log(person1);
+
+// //NOTE NOW the CURRENT/modern WAY of doing the same, using class:
+
+// class Person2 {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//     Person2.incrementCount();
+//   }
+//   //create static variable - only available here
+//   static count = 0;
+
+//   //create static method
+//   static getCount() {
+//     return Person2.count;
+//   }
+
+//   static incrementCount() {
+//     Person2.count++;
+//   }
+//   //include method sayHello under the constructor. This method is now included in the prototype
+//   sayHello() {
+//     console.log(`Hello, my name is ${this.name}`);
+//   }
+// }
+
+// const person2 = new Person2("Nikita", 23);
+
+// // //create more people to see how incrementCount() works each time incteasing count by one
+// // const person3 = new Person2("Nikita", 23);
+// // const person4 = new Person2("Nikita", 23);
+
+// person2.sayHello();
+// // // console.log(person2.count); //shows undefined, so go through Class
+// // // console.log(Person2.count); //shows 0;
+
+// // console.log(Person2.getCount()); // shows 0, calls function/method, inside of the class Person2
+
+// console.log(person2);
+
+// ////NOTE наследует:
+
+// class Person {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+//   sayHello() {
+//     console.log(`Hello, my name is ${this.name}`);
+//   }
+// }
+// ////FrontEndDev наследует class Person
+// class FrontEndDev extends Person {
+//   constructor(name, age, skills = []) {
+//     //to connect the constructors with the class Person constructor
+//     super(name, age);
+//     this.skills = skills;
+//   }
+
+//   test() {
+//     super.sayHello();
+//   }
+// }
+
+// const dev = new FrontEndDev("Nikita", 33);
+
+// console.log(dev);
+
+// dev.sayHello();
+
+// // run method test to run method sayHello from Person:
+// dev.test(); // results in: Hello, my name is Nikita
+
+// ////NOTE methods GET & SET
+
+// class Person {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+//   sayHello() {
+//     console.log(`Hello, my name is ${this.name}`);
+//   }
+// }
+
+// class FrontEndDev extends Person {
+//   constructor(name, age, skills = []) {
+//     super(name, age);
+//     this._skills = skills;
+//   }
+
+//   get skills() {
+//     return this._skills; // _ for read only
+//   }
+
+//   set skills(str) {
+//     this.skills.push(str);
+//   }
+// }
+
+// const dev = new FrontEndDev("Nikita", 33);
+
+// console.log(dev.skills);
+// console.log(dev._skills);
+
+// dev.skills = "Skill 1";
+// dev.skills = "Skill 2";
+// dev.skills = "Skill 3";
+
+// console.log(dev);
+
+////NOTE Деструктуризация
+
+// const user = {
+//   name: "Alex",
+//   age: 32,
+//   isAuth: false,
+//   projects: {
+//     firstProject: "firstProject",
+//     secondProject: "secondProject",
+//   },
+// };
+// //instead of this,use destructurization
+// // const name = user.name
+// // const age = user.age
+
+// //Деструктуризация
+// const {
+//   name: nameUser,
+//   age,
+//   isAuth,
+//   projects,
+//   projects: { firstProject, secondProject },
+// } = user;
+
+// console.log(nameUser);
+// console.log(age);
+// console.log(isAuth);
+// console.log(projects);
+
+// console.log(firstProject);
+// console.log(secondProject);
+
+// // // NOTE ARRAY destructurization
+
+// const names = ["Max", "Alex", "Nick", ["Peter", "Bob"]];
+// // const [max, alex, nick, others] = names;
+
+// const [max, alex, nick, [pete, bob]] = names;
+
+// console.log(max);
+// console.log(alex);
+// console.log(nick);
+// // console.log(others);
+// console.log(pete);
+// console.log(bob);
+
+//// NOTE using destructurization:
+
+// const logger = ({ first, second, third }) => {
+//   console.log(second);
+// };
+
+// logger({ first: "I", second: "JavaScript", third: "love" });
+
+//// NOTE Операторы Rest и Spread
+
+// const sum = (a, b, c, ...params) => {
+//   console.log(a);
+//   console.log(b);
+//   console.log(c);
+//   console.log(params);
+// };
+
+// sum(1, 2, 3, 4, 5, 6, 7, 8, 9, "args", false, 12000);
+
+const sum = (...params) => {
+  // console.log(params);
+  return params.reduce((sum, num) => sum + num);
 };
 
-// add a new method to the prototype:
-Person.prototype.sayHello = function () {
-  console.log("Hello, my name is " + this.name);
-};
-
-//name those functions - constructors with Capital letter
-
-// any function that uses the word  new   is a constructor function
-//create new objects here
-//call the function while giving it the parameters/arguments
-const person1 = new Person("Mike");
-const person2 = new Person("Tolik");
-const person3 = new Person("Evpatyi");
-
-//call this newly created method - sayHello with person1:
-person1.sayHello();
-//console shows: Hello, my name is Mike
-
-//create new object manually and check the differences in console vs those created by a constructor function
-//This is done so we can add methods to the prototype
-
-// const person4 = {
-//   name: "Anna",
-// };
-// console.log(person4);
-
-//when the word new is read the EMPTY object is created, and saved into the named variable, then the function runs with the given parameters and fills the object
-
-console.log(person1);
-console.log(person2);
-console.log(person3);
+console.log(sum(1, 2, 3));
